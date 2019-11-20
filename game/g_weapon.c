@@ -349,21 +349,6 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect, qboolean hyper)
 {
 
-	// Frankie Start
-
-	for (int i = -2; i < 2; ++i) {
-		vec3_t new_start = { start[0] + (20 * i) + 20, start[1], start[2] };
-		for (int j = -1; j < 1; ++j) {
-			new_start[2] += (20 * j) + 20;
-			for (int k = -1; k < 1; ++k) {
-				new_start[1] += (20 * k) + 20;
-				fire_rocket(self, new_start, dir, 2000, speed / 10, 25, 250);
-			}
-		}
-	}
-
-	// Frankie End
-
 	edict_t	*bolt;
 	trace_t	tr;
 
@@ -655,15 +640,13 @@ void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed
 	rocket->s.modelindex = gi.modelindex ("models/objects/rocket/tris.md2");
 	rocket->owner = self;
 	rocket->touch = rocket_touch;
-	rocket->nextthink = level.time + 1; // 8000 / speed; // Frankie
+	rocket->nextthink = level.time + 8000 / speed;
 	rocket->think = G_FreeEdict;
 	rocket->dmg = damage;
 	rocket->radius_dmg = radius_damage;
 	rocket->dmg_radius = damage_radius;
 	rocket->s.sound = gi.soundindex ("weapons/rockfly.wav");
 	rocket->classname = "rocket";
-
-	rocket->think = bfg_think; // Frankie
 
 	if (self->client)
 		check_dodge (self, rocket->s.origin, dir, speed);

@@ -774,7 +774,7 @@ char *dm_statusbar =
 
 // chase camera
 "if 16 "
-  "xv 25 "
+  "xv 0 "
   "yb -68 "
   "string \"Chasing\" "
   "xv 64 "
