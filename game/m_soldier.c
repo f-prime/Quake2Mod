@@ -461,6 +461,17 @@ static int machinegun_flash [] = {MZ2_SOLDIER_MACHINEGUN_1, MZ2_SOLDIER_MACHINEG
 
 void soldier_fire (edict_t *self, int flash_number)
 {
+
+	// Frankie
+	
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+			return;
+		}
+	}
+	
+	// Franki end
+
 	vec3_t	start;
 	vec3_t	forward, right, up;
 	vec3_t	aim;

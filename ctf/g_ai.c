@@ -344,6 +344,8 @@ void HuntTarget (edict_t *self)
 		AttackFinished (self, 1);
 }
 
+
+
 void FoundTarget (edict_t *self)
 {
 	// let other monsters see this monster for a while
@@ -386,7 +388,6 @@ void FoundTarget (edict_t *self)
 	self->monsterinfo.run (self);
 }
 
-
 /*
 ===========
 FindTarget
@@ -406,12 +407,10 @@ slower noticing monsters.
 */
 qboolean FindTarget (edict_t *self)
 {
-
-	Com_Printf("LOOKING\n"); // Frankie
-
 	edict_t		*client;
 	qboolean	heardit;
 	int			r;
+	edict_t *monster;
 
 	if (self->monsterinfo.aiflags & AI_GOOD_GUY)
 	{
@@ -424,7 +423,6 @@ qboolean FindTarget (edict_t *self)
 		//FIXME look for monsters?
 		return false;
 	}
-
 
 	// if we're going to a combat point, just proceed
 	if (self->monsterinfo.aiflags & AI_COMBAT_POINT)
@@ -469,8 +467,6 @@ qboolean FindTarget (edict_t *self)
 
 	if (client == self->enemy)
 		return true;	// JDC false;
-
-	Com_Printf("PET: %d\n", self->is_pet); // Frankie
 
 	if (client->client)
 	{
