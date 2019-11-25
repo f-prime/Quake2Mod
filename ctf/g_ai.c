@@ -406,6 +406,9 @@ slower noticing monsters.
 */
 qboolean FindTarget (edict_t *self)
 {
+
+	Com_Printf("LOOKING\n"); // Frankie
+
 	edict_t		*client;
 	qboolean	heardit;
 	int			r;
@@ -421,6 +424,7 @@ qboolean FindTarget (edict_t *self)
 		//FIXME look for monsters?
 		return false;
 	}
+
 
 	// if we're going to a combat point, just proceed
 	if (self->monsterinfo.aiflags & AI_COMBAT_POINT)
@@ -465,6 +469,8 @@ qboolean FindTarget (edict_t *self)
 
 	if (client == self->enemy)
 		return true;	// JDC false;
+
+	Com_Printf("PET: %d\n", self->is_pet); // Frankie
 
 	if (client->client)
 	{
@@ -606,6 +612,7 @@ qboolean FacingIdeal(edict_t *self)
 
 qboolean M_CheckAttack (edict_t *self)
 {
+
 	vec3_t	spot1, spot2;
 	float	chance;
 	trace_t	tr;

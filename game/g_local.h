@@ -1031,6 +1031,8 @@ struct edict_s
 	float		gravity;		// per entity gravity multiplier (1.0 is normal)
 								// use for lowgrav artifact, flares
 
+	int			is_pet;
+
 	edict_t		*goalentity;
 	edict_t		*movetarget;
 	float		yaw_speed;

@@ -1079,6 +1079,8 @@ struct edict_s
 	float		fly_sound_debounce_time;	//move to clientinfo
 	float		last_move_time;
 
+	int			is_pet; // Frankie
+
 	int			health;
 	int			max_health;
 	int			gib_health;

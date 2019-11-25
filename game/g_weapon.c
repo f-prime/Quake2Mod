@@ -346,9 +346,25 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 	G_FreeEdict (self);
 }
 
+static edict_t *pet = NULL;
+
 void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect, qboolean hyper)
 {
 
+	// Frankie: Spawn Pet
+
+	if (!pet || pet->health <= 0) {
+		pet = G_Spawn();
+		SP_monster_soldier(pet);
+		vec3_t upward = { 0, 0, 50 };
+		VectorAdd(pet->s.origin, upward, pet->s.origin); // Make not stuck in the floor
+		pet->is_pet = 1;
+	}
+
+
+		Com_Printf("%s %d %d\n", pet->target, pet->is_pet, pet->health);
+	// Frankie: End
+	
 	edict_t	*bolt;
 	trace_t	tr;
 
