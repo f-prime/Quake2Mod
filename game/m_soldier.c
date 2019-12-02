@@ -459,18 +459,66 @@ static int blaster_flash [] = {MZ2_SOLDIER_BLASTER_1, MZ2_SOLDIER_BLASTER_2, MZ2
 static int shotgun_flash [] = {MZ2_SOLDIER_SHOTGUN_1, MZ2_SOLDIER_SHOTGUN_2, MZ2_SOLDIER_SHOTGUN_3, MZ2_SOLDIER_SHOTGUN_4, MZ2_SOLDIER_SHOTGUN_5, MZ2_SOLDIER_SHOTGUN_6, MZ2_SOLDIER_SHOTGUN_7, MZ2_SOLDIER_SHOTGUN_8};
 static int machinegun_flash [] = {MZ2_SOLDIER_MACHINEGUN_1, MZ2_SOLDIER_MACHINEGUN_2, MZ2_SOLDIER_MACHINEGUN_3, MZ2_SOLDIER_MACHINEGUN_4, MZ2_SOLDIER_MACHINEGUN_5, MZ2_SOLDIER_MACHINEGUN_6, MZ2_SOLDIER_MACHINEGUN_7, MZ2_SOLDIER_MACHINEGUN_8};
 
+
+
+// Frankie
+
+edict_t *FindMonster(edict_t *self)
+{
+	edict_t	*ent = NULL;
+	edict_t	*best = NULL;
+
+	while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
+	{
+		if (ent == self)
+			continue;
+		if (!(ent->svflags & SVF_MONSTER))
+			continue;
+		if (!ent->health)
+			continue;
+		if (ent->health < 1)
+			continue;
+		if (!visible(self, ent))
+			continue;
+		if (!best)
+		{
+			best = ent;
+			continue;
+		}
+		if (ent->max_health <= best->max_health)
+			continue;
+		best = ent;
+	}
+
+	return best;
+}
+
+// Frankie end
+
 void soldier_fire (edict_t *self, int flash_number)
 {
 
 	// Frankie
-	
+
 	if (self->is_pet && self->enemy != NULL) {
 		if (!strcmp("player", self->enemy->classname)) {
-			return;
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
 		}
 	}
 	
-	// Franki end
+
+	// Frankie end
 
 	vec3_t	start;
 	vec3_t	forward, right, up;

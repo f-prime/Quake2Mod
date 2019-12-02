@@ -405,12 +405,15 @@ checked each frame.  This means multi player games will have slightly
 slower noticing monsters.
 ============
 */
+
 qboolean FindTarget (edict_t *self)
 {
 	edict_t		*client;
 	qboolean	heardit;
 	int			r;
 	edict_t *monster;
+
+	Com_Printf("FIND TARGET\n");
 
 	if (self->monsterinfo.aiflags & AI_GOOD_GUY)
 	{
