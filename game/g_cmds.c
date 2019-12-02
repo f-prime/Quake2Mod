@@ -393,6 +393,7 @@ Cmd_Use_f
 Use an inventory item
 ==================
 */
+
 void Cmd_Use_f (edict_t *ent)
 {
 	int			index;
@@ -419,6 +420,7 @@ void Cmd_Use_f (edict_t *ent)
 	}
 
 	it->use (ent, it);
+	
 }
 
 
@@ -450,6 +452,7 @@ void Cmd_Drop_f (edict_t *ent)
 	index = ITEM_INDEX(it);
 	if (!ent->client->pers.inventory[index])
 	{
+		Com_Printf("GGGG\n");
 		gi.cprintf (ent, PRINT_HIGH, "Out of item: %s\n", s);
 		return;
 	}
@@ -728,6 +731,32 @@ void Cmd_Players_f (edict_t *ent)
 	gi.cprintf (ent, PRINT_HIGH, "%s\n%i players\n", large, count);
 }
 
+static edict_t *pet = NULL;
+
+edict_t* spawn_pet(edict_t *self) {
+	// Frankie: Spawn Pet with G
+
+	if (!pet || pet->health <= 0) {
+		pet = G_Spawn();
+		Com_Printf("Ranged Pet Spawned");
+		Com_Printf("%d %d %d\n", self->s.origin[0], self->s.origin[1], self->s.origin[2]);
+		VectorSet(pet->s.origin, self->s.origin[0], self->s.origin[1], self->s.origin[2]);
+		//SP_monster_soldier(pet);
+		//SP_monster_flyer(pet);
+		//SP_monster_tank(pet);
+		vec3_t upward_left = { 0, 50, 0 };
+
+		VectorAdd(pet->s.origin, upward_left, pet->s.origin); // Make not stuck in the floor
+		pet->is_pet = 1;
+
+		return pet;
+	}
+
+	return pet;
+
+	// Frankie: End
+}
+
 /*
 =================
 Cmd_Wave_f
@@ -750,21 +779,34 @@ void Cmd_Wave_f (edict_t *ent)
 
 	switch (i)
 	{
-	case 0:
-		gi.cprintf (ent, PRINT_HIGH, "flipoff\n");
-		ent->s.frame = FRAME_flip01-1;
-		ent->client->anim_end = FRAME_flip12;
-		break;
-	case 1:
-		gi.cprintf (ent, PRINT_HIGH, "salute\n");
-		ent->s.frame = FRAME_salute01-1;
-		ent->client->anim_end = FRAME_salute11;
-		break;
-	case 2:
-		gi.cprintf (ent, PRINT_HIGH, "taunt\n");
-		ent->s.frame = FRAME_taunt01-1;
-		ent->client->anim_end = FRAME_taunt17;
-		break;
+	case 0: {
+				edict_t *np = spawn_pet(ent);
+				SP_monster_soldier(np);
+
+				gi.cprintf(ent, PRINT_HIGH, "flipoff\n");
+				ent->s.frame = FRAME_flip01 - 1;
+				ent->client->anim_end = FRAME_flip12;
+				break;
+	}
+
+	case 1: {
+				edict_t *np = spawn_pet(ent);
+				SP_monster_tank(np);
+
+				gi.cprintf(ent, PRINT_HIGH, "salute\n");
+				ent->s.frame = FRAME_salute01 - 1;
+				ent->client->anim_end = FRAME_salute11;
+				break;
+	}
+	case 2: {
+				edict_t *np = spawn_pet(ent);
+				SP_monster_flyer(np);
+
+				gi.cprintf(ent, PRINT_HIGH, "taunt\n");
+				ent->s.frame = FRAME_taunt01 - 1;
+				ent->client->anim_end = FRAME_taunt17;
+				break;
+	}
 	case 3:
 		gi.cprintf (ent, PRINT_HIGH, "wave\n");
 		ent->s.frame = FRAME_wave01-1;

@@ -424,6 +424,7 @@ void Cmd_Use_f (edict_t *ent)
 	index = ITEM_INDEX(it);
 	if (!ent->client->pers.inventory[index])
 	{
+		Com_Printf("FFFFF\n");
 		gi.cprintf (ent, PRINT_HIGH, "Out of item: %s\n", s);
 		return;
 	}
@@ -467,6 +468,7 @@ void Cmd_Drop_f (edict_t *ent)
 	index = ITEM_INDEX(it);
 	if (!ent->client->pers.inventory[index])
 	{
+		Com_Printf("HHHHH\n");
 		gi.cprintf (ent, PRINT_HIGH, "Out of item: %s\n", s);
 		return;
 	}
