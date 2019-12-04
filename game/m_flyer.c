@@ -366,6 +366,28 @@ mmove_t flyer_move_bankleft = {FRAME_bankl01, FRAME_bankl07, flyer_frames_bankle
 
 void flyer_fire (edict_t *self, int flash_number)
 {
+
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	start;
 	vec3_t	forward, right;
 	vec3_t	end;
@@ -422,6 +444,27 @@ mmove_t flyer_move_attack2 = {FRAME_attak201, FRAME_attak217, flyer_frames_attac
 
 void flyer_slash_left (edict_t *self)
 {
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	aim;
 
 	VectorSet (aim, MELEE_DISTANCE, self->mins[0], 0);
@@ -431,6 +474,28 @@ void flyer_slash_left (edict_t *self)
 
 void flyer_slash_right (edict_t *self)
 {
+
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	aim;
 
 	VectorSet (aim, MELEE_DISTANCE, self->maxs[0], 0);
@@ -488,6 +553,28 @@ void flyer_loop_melee (edict_t *self)
 
 void flyer_attack (edict_t *self)
 {
+
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 /*	if (random() <= 0.5)	
 		self->monsterinfo.currentmove = &flyer_move_attack1;
 	else */

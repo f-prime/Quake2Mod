@@ -330,6 +330,27 @@ void tank_pain (edict_t *self, edict_t *other, float kick, int damage)
 
 void TankBlaster (edict_t *self)
 {
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	end;
@@ -360,6 +381,28 @@ void TankStrike (edict_t *self)
 
 void TankRocket (edict_t *self)
 {
+
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	forward, right;
 	vec3_t	start;
 	vec3_t	dir;
@@ -386,6 +429,28 @@ void TankRocket (edict_t *self)
 
 void TankMachineGun (edict_t *self)
 {
+
+	// Frankie
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	vec3_t	dir;
 	vec3_t	vec;
 	vec3_t	start;

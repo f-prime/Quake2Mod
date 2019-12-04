@@ -460,40 +460,7 @@ static int shotgun_flash [] = {MZ2_SOLDIER_SHOTGUN_1, MZ2_SOLDIER_SHOTGUN_2, MZ2
 static int machinegun_flash [] = {MZ2_SOLDIER_MACHINEGUN_1, MZ2_SOLDIER_MACHINEGUN_2, MZ2_SOLDIER_MACHINEGUN_3, MZ2_SOLDIER_MACHINEGUN_4, MZ2_SOLDIER_MACHINEGUN_5, MZ2_SOLDIER_MACHINEGUN_6, MZ2_SOLDIER_MACHINEGUN_7, MZ2_SOLDIER_MACHINEGUN_8};
 
 
-
-// Frankie
-
-edict_t *FindMonster(edict_t *self)
-{
-	edict_t	*ent = NULL;
-	edict_t	*best = NULL;
-
-	while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
-	{
-		if (ent == self)
-			continue;
-		if (!(ent->svflags & SVF_MONSTER))
-			continue;
-		if (!ent->health)
-			continue;
-		if (ent->health < 1)
-			continue;
-		if (!visible(self, ent))
-			continue;
-		if (!best)
-		{
-			best = ent;
-			continue;
-		}
-		if (ent->max_health <= best->max_health)
-			continue;
-		best = ent;
-	}
-
-	return best;
-}
-
-// Frankie end
+edict_t* FindMonster(edict_t* self);
 
 void soldier_fire (edict_t *self, int flash_number)
 {
@@ -517,7 +484,6 @@ void soldier_fire (edict_t *self, int flash_number)
 		}
 	}
 	
-
 	// Frankie end
 
 	vec3_t	start;
