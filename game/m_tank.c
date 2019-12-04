@@ -166,7 +166,9 @@ mmove_t	tank_move_stop_walk = {FRAME_walk21, FRAME_walk25, tank_frames_stop_walk
 
 void tank_walk (edict_t *self)
 {
-		self->monsterinfo.currentmove = &tank_move_walk;
+	if (self->is_pet && self->pet_move_state == STAY)
+		return;
+	self->monsterinfo.currentmove = &tank_move_walk;
 }
 
 
@@ -218,6 +220,10 @@ mmove_t	tank_move_stop_run = {FRAME_walk21, FRAME_walk25, tank_frames_stop_run, 
 
 void tank_run (edict_t *self)
 {
+
+	if (self->is_pet && self->pet_move_state == STAY)
+		return;
+
 	if (self->enemy && self->enemy->client)
 		self->monsterinfo.aiflags |= AI_BRUTAL;
 	else

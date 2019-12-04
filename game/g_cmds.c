@@ -778,7 +778,8 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_flyer(pet);
 		//SP_monster_tank(pet);
 		vec3_t upward_left = { 0, 50, 0 };
-
+		pet->pet_attack_state = ATTACK;
+		pet->pet_move_state = FOLLOW;
 		VectorAdd(pet->s.origin, upward_left, pet->s.origin); // Make not stuck in the floor
 		pet->is_pet = 1;
 
@@ -1018,8 +1019,31 @@ void ClientCommand (edict_t *ent)
 	if (level.intermissiontime)
 		return;
 
-	if (Q_stricmp (cmd, "use") == 0)
-		Cmd_Use_f (ent);
+	if (Q_stricmp(cmd, "use") == 0)
+		Cmd_Use_f(ent);
+	// Frankie: Pet commands
+	else if (Q_stricmp(cmd, "killpet") == 0) {
+		Com_Printf("KILL PET!");
+		pet->health = -1000;
+		
+	}
+	else if (Q_stricmp(cmd, "follow") == 0) {
+		Com_Printf("PET FOLLOW!");
+		pet->pet_move_state = FOLLOW;
+	}
+	else if (Q_stricmp(cmd, "stay") == 0) {
+		Com_Printf("PET STAY!");
+		pet->pet_move_state = STAY;
+	}
+	else if (Q_stricmp(cmd, "attack") == 0) {
+		Com_Printf("PET ATTACK!");
+		pet->pet_attack_state = ATTACK;
+	}
+	else if (Q_stricmp(cmd, "passive") == 0) {
+		Com_Printf("PET PASSIVE!");
+		pet->pet_attack_state = PASSIVE;
+	}
+	// Frankie: End pet commands
 	else if (Q_stricmp (cmd, "drop") == 0)
 		Cmd_Drop_f (ent);
 	else if (Q_stricmp (cmd, "give") == 0)

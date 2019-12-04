@@ -913,6 +913,13 @@ The monster has an enemy it is trying to kill
 */
 void ai_run (edict_t *self, float dist)
 {
+
+	// Frankie: STAY
+	if (self->is_pet && self->pet_move_state == STAY) {
+		return;
+	}
+	// Frankie: End
+
 	vec3_t		v;
 	edict_t		*tempgoal;
 	edict_t		*save;

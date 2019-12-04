@@ -1033,6 +1033,10 @@ struct edict_s
 
 	int			is_pet;
 
+	enum { PASSIVE, ATTACK } pet_attack_state;
+
+	enum { FOLLOW, STAY } pet_move_state;
+
 	edict_t		*goalentity;
 	edict_t		*movetarget;
 	float		yaw_speed;

@@ -589,6 +589,13 @@ void flyer_setstart (edict_t *self)
 
 void flyer_nextmove (edict_t *self)
 {
+	// Frankie: Flyer Stay
+
+	if (self->pet_move_state == STAY)
+		return;
+
+	// Frankie: End
+
 	if (nextmove == ACTION_attack1)
 		self->monsterinfo.currentmove = &flyer_move_start_melee;
 	else if (nextmove == ACTION_attack2)

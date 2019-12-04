@@ -464,28 +464,6 @@ edict_t* FindMonster(edict_t* self);
 
 void soldier_fire (edict_t *self, int flash_number)
 {
-
-	// Frankie
-
-	if (self->is_pet && self->enemy != NULL) {
-		if (!strcmp("player", self->enemy->classname)) {
-
-			// Frankie: Start
-			edict_t *monster = FindMonster(self);
-			if (monster)
-			{
-				Com_Printf("LOOKING MONSTER");
-				self->enemy = monster;
-				FoundTarget(self);
-			}
-			else {
-				return;
-			}
-		}
-	}
-	
-	// Frankie end
-
 	vec3_t	start;
 	vec3_t	forward, right, up;
 	vec3_t	aim;
@@ -794,8 +772,39 @@ mframe_t soldier_frames_attack6 [] =
 };
 mmove_t soldier_move_attack6 = {FRAME_runs01, FRAME_runs14, soldier_frames_attack6, soldier_run};
 
+void soldier_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point);
+
 void soldier_attack(edict_t *self)
 {
+	// Frankie
+
+	if (self->is_pet && self->health < -100) {
+		vec3_t p = { 0, 0, 0 };
+		soldier_die(self, self, self, 2000, p);
+	}
+
+	if (self->pet_attack_state == PASSIVE)
+		return;
+
+	if (self->is_pet && self->enemy != NULL) {
+		if (!strcmp("player", self->enemy->classname)) {
+
+			// Frankie: Start
+			edict_t *monster = FindMonster(self);
+			if (monster)
+			{
+				Com_Printf("LOOKING MONSTER");
+				self->enemy = monster;
+				FoundTarget(self);
+			}
+			else {
+				return;
+			}
+		}
+	}
+
+	// Frankie end
+
 	if (self->s.skinnum < 4)
 	{
 		if (random() < 0.5)
