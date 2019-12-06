@@ -295,6 +295,23 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 {
 	int		i;
 
+	// Frankie: Fire other projectile
+	if (self->is_pet) {
+		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
+		if (self->pet_next_ability == EXPLODE) {
+			Com_Printf("FIRE ROCKET\n");
+			vec3_t down = { 0, 0, -1 };
+			fire_rocket(self, start, down, 10000, 1000, 100, 100);
+			self->pet_next_ability = NOTHING;
+			return;
+		}
+		else if (self->pet_next_ability == ROCKET_HELL) {
+			Com_Printf("ROCKET HELL!\n");
+		}
+	}
+
+	// Frankie: End
+
 	for (i = 0; i < count; i++)
 		fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
 }
@@ -349,6 +366,8 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect, qboolean hyper)
 {
 	
+
+
 	edict_t	*bolt;
 	trace_t	tr;
 
@@ -576,8 +595,12 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 	vec3_t		origin;
 	int			n;
 
-	if (other == ent->owner)
+	// Frankie: Added is_pet
+
+	if (other == ent->owner && !ent->is_pet)
 		return;
+
+	// Frankie: End
 
 	if (surf && (surf->flags & SURF_SKY))
 	{

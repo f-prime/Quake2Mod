@@ -778,31 +778,37 @@ void soldier_attack(edict_t *self)
 {
 	// Frankie
 
-	if (self->is_pet && self->health < -100) {
-		vec3_t p = { 0, 0, 0 };
-		soldier_die(self, self, self, 2000, p);
-	}
+	if (self->is_pet) {
+		if (self->health < -100) {
+			vec3_t p = { 0, 0, 0 };
+			soldier_die(self, self, self, 2000, p);
+		}
 
-	if (self->pet_attack_state == PASSIVE)
-		return;
+		if (self->pet_attack_state == PASSIVE)
+			return;
 
-	if (self->is_pet && self->enemy != NULL) {
-		if (!strcmp("player", self->enemy->classname)) {
+		if (rand() % 100 > 10) {
+			Com_Printf("Ability\n");
+			self->pet_next_ability = self->pet_available_abilities[rand() % 3];
+		}
 
-			// Frankie: Start
-			edict_t *monster = FindMonster(self);
-			if (monster)
-			{
-				Com_Printf("LOOKING MONSTER");
-				self->enemy = monster;
-				FoundTarget(self);
-			}
-			else {
-				return;
+		if (self->enemy != NULL) {
+			if (!strcmp("player", self->enemy->classname)) {
+
+				// Frankie: Start
+				edict_t *monster = FindMonster(self);
+				if (monster)
+				{
+					Com_Printf("LOOKING MONSTER\n");
+					self->enemy = monster;
+					FoundTarget(self);
+				}
+				else {
+					return;
+				}
 			}
 		}
 	}
-
 	// Frankie end
 
 	if (self->s.skinnum < 4)

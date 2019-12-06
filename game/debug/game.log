@@ -1,13 +1,9 @@
-﻿Build started 12/4/2019 11:45:16 AM.
+﻿Build started 12/6/2019 12:39:49 AM.
      1>Project "C:\Users\Frankie\GameMod\mods\quake2-full\game\game.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D BUILDING_REF_GL /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\debug\\" /Fd".\debug\vc120.pdb" /FR".\debug\\" /Gd /TC /analyze- /errorReport:prompt m_tank.c
-         m_tank.c
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(345): warning C4013: 'FindMonster' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(345): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(397): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(445): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D BUILDING_REF_GL /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\debug\\" /Fd".\debug\vc120.pdb" /FR".\debug\\" /Gd /TC /analyze- /errorReport:prompt g_weapon.c
+         g_weapon.c
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1186,5): warning MSB8012: TargetPath(C:\Users\Frankie\GameMod\mods\quake2-full\game\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Quake 2\mod\game.dll) does not match the Linker's OutputFile property value (C:\Program Files (x86)\Steam\steamapps\common\Quake 2\mod\gamex86.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1188,5): warning MSB8012: TargetName(game) does not match the Linker's OutputFile property value (gamex86). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
        Link:
@@ -66,4 +62,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.99
+Time Elapsed 00:00:00.97

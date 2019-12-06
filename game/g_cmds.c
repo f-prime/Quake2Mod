@@ -777,9 +777,13 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_soldier(pet);
 		//SP_monster_flyer(pet);
 		//SP_monster_tank(pet);
-		vec3_t upward_left = { 0, 50, 0 };
+		vec3_t upward_left = { 50, 0, 0 };
 		pet->pet_attack_state = ATTACK;
 		pet->pet_move_state = FOLLOW;
+		pet->pet_next_ability = NOTHING;
+		for (int i = 0; i < 3; i++)
+			pet->pet_available_abilities[i] = NOTHING;
+		
 		VectorAdd(pet->s.origin, upward_left, pet->s.origin); // Make not stuck in the floor
 		pet->is_pet = 1;
 
@@ -975,6 +979,85 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+// Frankie: Give ability
+
+void Cmd_Give_Pet(edict_t* ent) {
+	int slot;
+	char *ability;
+
+	Com_Printf("%d\n", gi.argc());
+
+	if (gi.argc() < 3) {
+		Com_Printf("regen_health, ");
+		Com_Printf("poison, ");
+		Com_Printf("lifetap, ");
+		Com_Printf("double_food, ");
+		Com_Printf("bullet_bfg, ");
+		Com_Printf("player_double_damage, ");
+		Com_Printf("speed_boost, ");
+		Com_Printf("heal_player, ");
+		Com_Printf("explode, ");
+		Com_Printf("rocket_hell\n");
+		return;
+	}
+
+	ability = gi.argv(1);
+	slot = atoi(gi.argv(2));
+
+	if (slot > 3) {
+		Com_Printf("Slot cannot be greater than 3\n");
+		return;
+	}
+	else if (slot < 0) {
+		Com_Printf("Slot cannot be less than 0\n");
+	}
+
+	Com_Printf("%s %d\n", ability, slot);
+
+
+	if (strcmp(ability, "regen_health") == 0) {
+		Com_Printf("Giving Health Regen\n");
+		pet->pet_available_abilities[slot] = REGEN_HEALTH;
+	}
+	else if (strcmp(ability, "poison") == 0) {
+		Com_Printf("Giving Poison\n");
+		pet->pet_available_abilities[slot] = POISON;
+	}
+	else if (strcmp(ability, "lifetap") == 0) {
+		Com_Printf("Giving Lifetap\n");
+		pet->pet_available_abilities[slot] = LIFETAP;
+	}
+	else if (strcmp(ability, "double_food") == 0) {
+		Com_Printf("Giving Double Food\n");
+		pet->pet_available_abilities[slot] = DOUBLE_FOOD;
+	}
+	else if (strcmp(ability, "bullet_bfg") == 0) {
+		Com_Printf("Giving bullet bfg\n");
+		pet->pet_available_abilities[slot] = BULLET_BFG;
+	}
+	else if (strcmp(ability, "player_double_damager") == 0) {
+		Com_Printf("Giving Player Double Damage\n");
+		pet->pet_available_abilities[slot] = PLAYER_DOUBLE_DAMAGE;
+	}
+	else if (strcmp(ability, "speed_boost") == 0) {
+		Com_Printf("Giving Speed Boost\n");
+		pet->pet_available_abilities[slot] = SPEED_BOOST;
+	}
+	else if (strcmp(ability, "heal_player") == 0) {
+		Com_Printf("Giving Heal Player\n");
+		pet->pet_available_abilities[slot] = HEAL_PLAYER;
+	}
+	else if (strcmp(ability, "explode") == 0) {
+		Com_Printf("Giving Explode\n");
+		pet->pet_available_abilities[slot] = EXPLODE;
+	}
+	else if (strcmp(ability, "rocket_hell") == 0) {
+		Com_Printf("Giving Rocket Hell\n");
+		pet->pet_available_abilities[slot] = ROCKET_HELL;
+	}
+}
+
+// Frankie: End
 
 /*
 =================
@@ -1023,24 +1106,30 @@ void ClientCommand (edict_t *ent)
 		Cmd_Use_f(ent);
 	// Frankie: Pet commands
 	else if (Q_stricmp(cmd, "killpet") == 0) {
-		Com_Printf("KILL PET!");
+		Com_Printf("KILL PET!\n");
 		pet->health = -1000;
 		
 	}
+
+	else if (Q_stricmp(cmd, "givepet") == 0) {
+		Com_Printf("GIVE PET!\n");
+		Cmd_Give_Pet(ent);
+	}
+
 	else if (Q_stricmp(cmd, "follow") == 0) {
-		Com_Printf("PET FOLLOW!");
+		Com_Printf("PET FOLLOW!\n");
 		pet->pet_move_state = FOLLOW;
 	}
 	else if (Q_stricmp(cmd, "stay") == 0) {
-		Com_Printf("PET STAY!");
+		Com_Printf("PET STAY!\n");
 		pet->pet_move_state = STAY;
 	}
 	else if (Q_stricmp(cmd, "attack") == 0) {
-		Com_Printf("PET ATTACK!");
+		Com_Printf("PET ATTACK!\n");
 		pet->pet_attack_state = ATTACK;
 	}
 	else if (Q_stricmp(cmd, "passive") == 0) {
-		Com_Printf("PET PASSIVE!");
+		Com_Printf("PET PASSIVE!\n");
 		pet->pet_attack_state = PASSIVE;
 	}
 	// Frankie: End pet commands

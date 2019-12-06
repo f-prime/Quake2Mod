@@ -961,6 +961,25 @@ struct gclient_s
 	qboolean	update_chase;		// need to update chase info?
 };
 
+// Frankie: Pet Abilities
+
+typedef enum {
+	NOTHING,
+	
+	REGEN_HEALTH, // Regen Health (pet)
+	POISON, // Chance to poison enemy (pet)
+	LIFETAP, // Chance to take health from enemy and regen own health (pet)
+	DOUBLE_FOOD, // Eat less and gain more
+	BULLET_BFG, // Bullets act like BFGs
+	PLAYER_DOUBLE_DAMAGE, // Player does double damage
+	SPEED_BOOST, // Give player a speed boost
+	HEAL_PLAYER, // Heal player
+	EXPLODE, // Random chance of exploding (Done For: Soldier)
+	ROCKET_HELL, // Random chance of shooting a bunch of rockets 
+
+} abilities;
+
+// Frankie: End
 
 struct edict_s
 {
@@ -1031,11 +1050,16 @@ struct edict_s
 	float		gravity;		// per entity gravity multiplier (1.0 is normal)
 								// use for lowgrav artifact, flares
 
+	// Frankie: Pet stuff
 	int			is_pet;
+	int			pet_hunger;
+	abilities   pet_available_abilities[3];
+	abilities	pet_next_ability;
 
 	enum { PASSIVE, ATTACK } pet_attack_state;
-
 	enum { FOLLOW, STAY } pet_move_state;
+
+	// Frankie: end
 
 	edict_t		*goalentity;
 	edict_t		*movetarget;
