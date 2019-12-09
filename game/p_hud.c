@@ -376,6 +376,16 @@ G_SetStats
 */
 void G_SetStats (edict_t *ent)
 {
+
+	// Frankie
+
+	/*if (ent && ent->is_pet) {
+		Com_Printf("Pet Stats\n");
+		return;
+	}*/
+
+	// Frankie: end
+
 	gitem_t		*item;
 	int			index, cells;
 	int			power_armor_type;

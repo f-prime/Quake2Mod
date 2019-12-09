@@ -137,6 +137,14 @@ This is an internal support routine used for bullet/pellet based weapons.
 */
 static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int te_impact, int hspread, int vspread, int mod)
 {
+
+	if (strcmp(self->classname, "player") == 0) {
+		damage /= 10;
+		kick *= 10;
+		hspread *= 3;
+		vspread *= 3;
+	}
+
 	trace_t		tr;
 	vec3_t		dir;
 	vec3_t		forward, right, up;
@@ -280,6 +288,9 @@ pistols, rifles, etc....
 */
 void fire_bullet (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
 {
+
+	
+
 	fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
 }
 
@@ -294,6 +305,13 @@ Shoots shotgun pellets.  Used by shotgun and super shotgun.
 void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int count, int mod)
 {
 	int		i;
+
+	if (strcmp(self->classname, "player") == 0) {
+		damage /= 10;
+		count = 3;
+		vspread *= 2;
+		hspread *= 2;
+	}
 
 	// Frankie: Fire other projectile
 	if (self->is_pet) {
@@ -365,8 +383,15 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 
 void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect, qboolean hyper)
 {
-	
 
+	// Frankie: Limit blaster
+	
+	if (strcmp(self->classname, "player") == 0) {
+		damage = 5;
+		speed /= 10;
+	}
+
+	// Frankie : End
 
 	edict_t	*bolt;
 	trace_t	tr;
@@ -509,6 +534,15 @@ static void Grenade_Touch (edict_t *ent, edict_t *other, cplane_t *plane, csurfa
 
 void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius)
 {
+	
+	// Frankie: Limit grenade
+
+	if (strcmp(self->classname, "player") == 0) {
+		damage /= 10;
+		speed /= 10;
+		damage_radius /= 10;
+	}
+
 	edict_t	*grenade;
 	vec3_t	dir;
 	vec3_t	forward, right, up;
@@ -542,6 +576,15 @@ void fire_grenade (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int s
 
 void fire_grenade2 (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int speed, float timer, float damage_radius, qboolean held)
 {
+
+	// Frankie: Limit grenade
+
+	if (strcmp(self->classname, "player") == 0) {
+		damage /= 10;
+		speed /= 10;
+		damage_radius /= 10;
+	}
+
 	edict_t	*grenade;
 	vec3_t	dir;
 	vec3_t	forward, right, up;
@@ -647,6 +690,14 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 
 void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage)
 {
+
+	if ((self->classname, "player") == 0) {
+		damage /= 10;
+		speed /= 10;
+		damage_radius /= 10;
+		radius_damage /= 0;
+	}
+
 	edict_t	*rocket;
 
 	rocket = G_Spawn();
@@ -685,6 +736,7 @@ fire_rail
 */
 void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick)
 {
+
 	vec3_t		from;
 	vec3_t		end;
 	trace_t		tr;
@@ -692,7 +744,12 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 	int			mask;
 	qboolean	water;
 
-	VectorMA (start, 8192, aimdir, end);
+	// Frankie changed  8192 to 1000
+	if (strcmp(self->classname, "player") == 0) {
+		// Frankie change kick
+		damage /= 10;
+		VectorMA(start, 100, aimdir, end);
+	}
 	VectorCopy (start, from);
 	ignore = self;
 	water = false;
@@ -748,6 +805,7 @@ fire_bfg
 */
 void bfg_explode (edict_t *self)
 {
+
 	edict_t	*ent;
 	float	points;
 	vec3_t	v;
@@ -909,6 +967,11 @@ void bfg_think (edict_t *self)
 
 void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius)
 {
+
+	if (strcmp(self->classname, "player") == 0) {
+		return; // Frankie: Don't allow player to use BFG
+	}
+
 	edict_t	*bfg;
 
 	bfg = G_Spawn();

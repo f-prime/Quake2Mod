@@ -779,6 +779,8 @@ void soldier_attack(edict_t *self)
 	// Frankie
 
 	if (self->is_pet) {
+		Com_Printf("PET STATS\n");
+
 		if (self->health < -100) {
 			vec3_t p = { 0, 0, 0 };
 			soldier_die(self, self, self, 2000, p);
