@@ -299,8 +299,9 @@ HelpComputer
 Draw help computer.
 ==================
 */
-void HelpComputer (edict_t *ent)
+void HelpComputer (edict_t *ent, edict_t* pet)
 {
+
 	char	string[1024];
 	char	*sk;
 
@@ -313,21 +314,88 @@ void HelpComputer (edict_t *ent)
 	else
 		sk = "hard+";
 
+
+	// Frankie: Get str value of current ability
+
+	char *ability1 = malloc(sizeof(char) * 1024);
+	char *ability2 = malloc(sizeof(char) * 1024);
+	char *ability3 = malloc(sizeof(char)* 1024);
+
+	char* abilities[3] = { ability1, ability2, ability3 };
+
+	for (int i = 0; i < 3; i++) {
+		char* ability = abilities[i];
+
+		switch (pet->pet_available_abilities[i]) {
+			case EXPLODE:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Explode");
+				break;
+			case REGEN_HEALTH:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Regen Healt");
+				break;
+			case POISON:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Poison");
+				break;
+			case LIFETAP:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Lifetap");
+				break;
+			case DOUBLE_FOOD:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Double Food");
+				break;
+			case BULLET_BFG:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Bullet BFG");
+				break;
+			case PLAYER_DOUBLE_DAMAGE:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Double Player Damage");
+				break;
+			case SPEED_BOOST:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Speed Boost");
+				break;
+			case HEAL_PLAYER:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Heal Player");
+				break;
+			case ROCKET_HELL:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Rocket Hell");
+				break;
+			default:
+				memset(ability, 0, sizeof(ability));
+				strcpy(ability, "Nothing");
+		}
+	}
+
+	// Frankie: Changes layout
+
 	// send the layout
-	Com_sprintf (string, sizeof(string),
+	Com_sprintf(string, sizeof(string),
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
-		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
+		"xv 0 yv 54 cstring2 \"Ability 1: %s\n Abiity 2: %s\n Ability 3: %s\n\" " // help 1
 		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
-		"xv 50 yv 164 string2 \" kills     goals    secrets\" "
-		"xv 50 yv 172 string2 \"%3i/%3i     %i/%i       %i/%i\" ", 
-		sk,
-		level.level_name,
-		game.helpmessage1,
+		"xv 50 yv 164 string2 \" Health     Hunger   SECRETS\" "
+		"xv 50 yv 172 string2 \"  %3i        %i       %i/%i\" ",
+		"PET MONITOR", //sk,
+		pet->pet_kind == BASIC ? 
+			"Basic Pet" : 
+				pet->pet_kind == TANK ? 
+					"Tank Pet" : 
+					"Flyer Pet", //level.level_name,
+		ability1,
+		ability2,
+		ability3,
 		game.helpmessage2,
-		level.killed_monsters, level.total_monsters, 
-		level.found_goals, level.total_goals,
+		pet->health, //level.killed_monsters
+		pet->pet_hunger, //level.found_goals
 		level.found_secrets, level.total_secrets);
 
 	gi.WriteByte (svc_layout);
@@ -343,8 +411,13 @@ Cmd_Help_f
 Display the current help message
 ==================
 */
-void Cmd_Help_f (edict_t *ent)
+void Cmd_Help_f (edict_t *ent, edict_t* pet)
 {
+	// Frankie: Check if pet != null
+	if (!pet) {
+		return;
+	}
+
 	// this is for backwards compatability
 	if (deathmatch->value)
 	{
@@ -363,7 +436,7 @@ void Cmd_Help_f (edict_t *ent)
 
 	ent->client->showhelp = true;
 	ent->client->pers.helpchanged = 0;
-	HelpComputer (ent);
+	HelpComputer (ent, pet);
 }
 
 

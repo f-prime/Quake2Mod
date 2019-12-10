@@ -1053,6 +1053,7 @@ struct edict_s
 	// Frankie: Pet stuff
 	int			is_pet;
 	int			pet_hunger;
+	enum { BASIC, TANK, FLYER } pet_kind;
 	abilities   pet_available_abilities[3];
 	abilities	pet_next_ability;
 

@@ -778,6 +778,7 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_flyer(pet);
 		//SP_monster_tank(pet);
 		vec3_t upward_left = { 50, 0, 0 };
+		pet->pet_hunger = 0;
 		pet->pet_attack_state = ATTACK;
 		pet->pet_move_state = FOLLOW;
 		pet->pet_next_ability = NOTHING;
@@ -820,7 +821,7 @@ void Cmd_Wave_f (edict_t *ent)
 	case 0: {
 				edict_t *np = spawn_pet(ent);
 				SP_monster_soldier(np);
-
+				np->pet_kind = BASIC;
 				gi.cprintf(ent, PRINT_HIGH, "flipoff\n");
 				ent->s.frame = FRAME_flip01 - 1;
 				ent->client->anim_end = FRAME_flip12;
@@ -830,7 +831,7 @@ void Cmd_Wave_f (edict_t *ent)
 	case 1: {
 				edict_t *np = spawn_pet(ent);
 				SP_monster_tank(np);
-
+				np->pet_kind = TANK;
 				gi.cprintf(ent, PRINT_HIGH, "salute\n");
 				ent->s.frame = FRAME_salute01 - 1;
 				ent->client->anim_end = FRAME_salute11;
@@ -839,7 +840,7 @@ void Cmd_Wave_f (edict_t *ent)
 	case 2: {
 				edict_t *np = spawn_pet(ent);
 				SP_monster_flyer(np);
-
+				np->pet_kind = FLYER;
 				gi.cprintf(ent, PRINT_HIGH, "taunt\n");
 				ent->s.frame = FRAME_taunt01 - 1;
 				ent->client->anim_end = FRAME_taunt17;
@@ -1095,7 +1096,7 @@ void ClientCommand (edict_t *ent)
 	}
 	if (Q_stricmp (cmd, "help") == 0)
 	{
-		Cmd_Help_f (ent);
+		Cmd_Help_f (ent, pet);
 		return;
 	}
 
