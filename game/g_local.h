@@ -1051,8 +1051,10 @@ struct edict_s
 								// use for lowgrav artifact, flares
 
 	// Frankie: Pet stuff
+	float		lasthungry;
 	int			is_pet;
 	int			pet_hunger;
+	int			is_eaten;
 	enum { BASIC, TANK, FLYER } pet_kind;
 	abilities   pet_available_abilities[3];
 	abilities	pet_next_ability;

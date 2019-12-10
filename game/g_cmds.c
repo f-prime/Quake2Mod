@@ -778,7 +778,8 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_flyer(pet);
 		//SP_monster_tank(pet);
 		vec3_t upward_left = { 50, 0, 0 };
-		pet->pet_hunger = 0;
+		pet->pet_hunger = 25;
+		pet->lasthungry = level.time;
 		pet->pet_attack_state = ATTACK;
 		pet->pet_move_state = FOLLOW;
 		pet->pet_next_ability = NOTHING;
@@ -1058,6 +1059,47 @@ void Cmd_Give_Pet(edict_t* ent) {
 	}
 }
 
+void Cmd_Feed_Pet(edict_t* self) {
+	if (!self) {
+		return;
+	}
+
+	edict_t	*ent = NULL;
+	edict_t	*best = NULL;
+
+	while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
+	{
+		if (ent == self)
+			continue;
+		if (!(ent->svflags & SVF_MONSTER))
+			continue;
+		if (ent->health)
+			continue;
+		if (ent->health > 1)
+			continue;
+		if (!visible(self, ent))
+			continue;
+		if (ent->is_eaten)
+			continue;
+		if (!best)
+		{
+			best = ent;
+			continue;
+		}
+
+		best = ent;
+	}
+
+	if (best) {
+		Com_Printf("CAN EAT: %d %s\n", best->is_eaten, best->classname);
+		best->is_eaten = 1;
+		self->pet_hunger -= 10;
+	}
+	else {
+		Com_Printf("Nothing to eat nearby\n");
+	}
+}
+
 // Frankie: End
 
 /*
@@ -1115,6 +1157,11 @@ void ClientCommand (edict_t *ent)
 	else if (Q_stricmp(cmd, "givepet") == 0) {
 		Com_Printf("GIVE PET!\n");
 		Cmd_Give_Pet(ent);
+	}
+
+	else if (Q_stricmp(cmd, "eat") == 0) {
+		Com_Printf("PET EAT!\n");
+		Cmd_Feed_Pet(pet);
 	}
 
 	else if (Q_stricmp(cmd, "follow") == 0) {

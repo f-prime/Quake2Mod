@@ -777,9 +777,16 @@ void soldier_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 void soldier_attack(edict_t *self)
 {
 	// Frankie
-
 	if (self->is_pet) {
 		Com_Printf("PET STATS\n");
+
+		if (level.time - self->lasthungry > 5) {
+			Com_Printf("STARVING\n");
+			self->pet_hunger += 1;
+			if (self->pet_hunger >= 100) {
+				self->health = -1000;
+			}
+		}
 
 		if (self->health < -100) {
 			vec3_t p = { 0, 0, 0 };
