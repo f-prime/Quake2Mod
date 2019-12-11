@@ -23,8 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Frankie
 
 void next_ability(edict_t *self) {
-	if (rand() % 100 > 10) {
-		Com_Printf("Ability\n");
+	if (rand() % 100 > 50) {
 		self->pet_next_ability = self->pet_available_abilities[rand() % 3];
 	}
 }
@@ -785,8 +784,9 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_flyer(pet);
 		//SP_monster_tank(pet);
 		vec3_t upward_left = { 50, 0, 0 };
-		pet->pet_hunger = 25;
+		pet->pet_hunger = 0;
 		pet->lasthungry = level.time;
+		pet->lastspecial = level.time;
 		pet->pet_attack_state = ATTACK;
 		pet->pet_move_state = FOLLOW;
 		pet->pet_next_ability = NOTHING;
@@ -997,16 +997,16 @@ void Cmd_Give_Pet(edict_t* ent) {
 	Com_Printf("%d\n", gi.argc());
 
 	if (gi.argc() < 3) {
-		Com_Printf("regen_health, ");
-		Com_Printf("poison, ");
-		Com_Printf("lifetap, ");
-		Com_Printf("double_food, ");
-		Com_Printf("bullet_bfg, ");
+		Com_Printf("regen_health, "); // done
+		Com_Printf("grenade, "); // done
+		Com_Printf("bfg, "); // done
+		Com_Printf("double_food, "); // done
+		Com_Printf("rail, "); // DONE
 		Com_Printf("player_double_damage, ");
-		Com_Printf("speed_boost, ");
-		Com_Printf("heal_player, ");
-		Com_Printf("explode, ");
-		Com_Printf("rocket_hell\n");
+		Com_Printf("speed_boost, "); 
+		Com_Printf("heal_player, "); // Done
+		Com_Printf("explode, "); // done
+		Com_Printf("rocket_hell\n"); // done
 		return;
 	}
 
@@ -1028,21 +1028,21 @@ void Cmd_Give_Pet(edict_t* ent) {
 		Com_Printf("Giving Health Regen\n");
 		pet->pet_available_abilities[slot] = REGEN_HEALTH;
 	}
-	else if (strcmp(ability, "poison") == 0) {
-		Com_Printf("Giving Poison\n");
-		pet->pet_available_abilities[slot] = POISON;
+	else if (strcmp(ability, "grenade") == 0) {
+		Com_Printf("Giving Grenae\n");
+		pet->pet_available_abilities[slot] = GRENADE;
 	}
-	else if (strcmp(ability, "lifetap") == 0) {
-		Com_Printf("Giving Lifetap\n");
-		pet->pet_available_abilities[slot] = LIFETAP;
+	else if (strcmp(ability, "bfg") == 0) {
+		Com_Printf("Giving BFG\n");
+		pet->pet_available_abilities[slot] = BFG;
 	}
 	else if (strcmp(ability, "double_food") == 0) {
 		Com_Printf("Giving Double Food\n");
 		pet->pet_available_abilities[slot] = DOUBLE_FOOD;
 	}
-	else if (strcmp(ability, "bullet_bfg") == 0) {
-		Com_Printf("Giving bullet bfg\n");
-		pet->pet_available_abilities[slot] = BULLET_BFG;
+	else if (strcmp(ability, "rail") == 0) {
+		Com_Printf("Giving rail\n");
+		pet->pet_available_abilities[slot] = RAIL;
 	}
 	else if (strcmp(ability, "player_double_damager") == 0) {
 		Com_Printf("Giving Player Double Damage\n");
@@ -1099,7 +1099,14 @@ void Cmd_Feed_Pet(edict_t* self) {
 
 	if (best) {
 		Com_Printf("CAN EAT: %d %s\n", best->is_eaten, best->classname);
-		best->is_eaten = 1;
+		int eat_val = 2;
+		for (int i = 0; i < 3; i++) {
+			if (self->pet_available_abilities[i] == DOUBLE_FOOD) {
+				eat_val = 4;
+				break;
+			}
+		}
+		best->is_eaten = eat_val;
 		self->pet_hunger -= 10;
 	}
 	else {

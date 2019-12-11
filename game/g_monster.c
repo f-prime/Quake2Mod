@@ -418,6 +418,41 @@ void M_MoveFrame (edict_t *self)
 
 void monster_think (edict_t *self)
 {
+	
+	// Frankie
+
+	if (self->is_pet) {
+		next_ability(self);
+		if (self->pet_available_abilities[0] == HEAL_PLAYER || self->pet_available_abilities[1] == HEAL_PLAYER || self->pet_available_abilities[2] == HEAL_PLAYER) {
+			edict_t	*ent = NULL;
+			edict_t	*best = NULL;
+
+			while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
+			{
+				if (strcmp(ent->classname, "player") == 0)
+					break;
+			}
+
+			if (ent && ent->health < 100) {
+				if (rand() % 100 > 85) {
+					ent->health += 1;
+				}
+			}
+		}
+
+		if (level.time - self->lasthungry > 5) {
+			Com_Printf("STARVING\n");
+			self->pet_hunger += 1;
+			if (self->pet_hunger >= 100) {
+				self->health = -1000;
+			}
+			self->lasthungry = level.time;
+		}
+	}
+
+	// Frankie: End
+
+
 	M_MoveFrame (self);
 	if (self->linkcount != self->monsterinfo.linkcount)
 	{

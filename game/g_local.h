@@ -967,10 +967,10 @@ typedef enum {
 	NOTHING,
 	
 	REGEN_HEALTH, // Regen Health (pet)
-	POISON, // Chance to poison enemy (pet)
-	LIFETAP, // Chance to take health from enemy and regen own health (pet)
+	BFG,
+	GRENADE,
 	DOUBLE_FOOD, // Eat less and gain more
-	BULLET_BFG, // Bullets act like BFGs
+	RAIL, 
 	PLAYER_DOUBLE_DAMAGE, // Player does double damage
 	SPEED_BOOST, // Give player a speed boost
 	HEAL_PLAYER, // Heal player
@@ -1051,7 +1051,9 @@ struct edict_s
 								// use for lowgrav artifact, flares
 
 	// Frankie: Pet stuff
+	int			poisoned;
 	float		lasthungry;
+	float		lastspecial;
 	int			is_pet;
 	int			pet_hunger;
 	int			is_eaten;

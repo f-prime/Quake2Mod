@@ -369,8 +369,6 @@ void flyer_fire (edict_t *self, int flash_number)
 
 	// Frankie
 
-	next_ability(self);
-
 	if (self->is_pet && self->enemy != NULL) {
 		if (!strcmp("player", self->enemy->classname)) {
 

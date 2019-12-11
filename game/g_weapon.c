@@ -1009,17 +1009,79 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 // Frankie: DO special
 
 void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
-	if (self->is_pet) {
+	if (self->is_pet && level.time - self->lastspecial > 5) {
 		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
-		if (self->pet_next_ability == EXPLODE) {
-			Com_Printf("FIRE ROCKET\n");
-			vec3_t down = { 0, 0, -1 };
-			self->pet_next_ability = NOTHING;
-			fire_rocket(self, start, down, 10000, 1000, 100, 100);
-			return;
+
+		self->speed = 200;
+		for (int i = 0; i < 3; i++) {
+			if (self->pet_available_abilities[i] == SPEED_BOOST) {
+				self->speed = 400;
+			}
 		}
-		else if (self->pet_next_ability == ROCKET_HELL) {
-			Com_Printf("ROCKET HELL!\n");
+
+		int pna = self->pet_next_ability;
+		self->pet_next_ability = NOTHING;
+		self->lastspecial = level.time;
+
+		switch (pna) {
+			case  EXPLODE: {
+				Com_Printf("EXPLODE!\n");
+				vec3_t down = { 0, 0, -1 };
+				fire_rocket(self, start, down, 10000, 1000, 100, 100);
+				break;
+			}
+		
+			case  BFG: {
+				Com_Printf("BFG!\n");
+				fire_bfg(self, start, aimdir, 10000, 100, 100);
+				break;
+			}
+
+			case  GRENADE: {
+				Com_Printf("GRENADE!\n");
+				fire_grenade(self, start, aimdir, 1000, 500, 3, 100);
+				break;
+			}
+
+			case ROCKET_HELL: {
+				Com_Printf("ROCKET HELL!");
+				vec3_t dirs[] = {
+					{1, 0, 0},
+					{-1, 0, 0},
+					{ 0, 1, 0 },
+					{ 0, -1, 0 },
+					{ 0,  0, 1 }
+				};
+
+				for (int i = 0; i < 5; i++) {
+					fire_rocket(self, start, dirs[i], 1000, 1000, 1000, 1000);
+				}
+
+				break;
+			}
+
+			case RAIL: {
+				Com_Printf("GET RAILLED!");
+				vec3_t l = { -start[0] * 20, start[1] * 20, start[2] * 20 };
+				vec3_t r = { start[0] * 20, -start[1] * 20, start[2] * 20 };
+				vec3_t f = { -start[0] * 20, -start[1] * 20, start[2] * 20 };
+				vec3_t b = { start[0] * 20, start[1] * 20, start[2] * 20 };
+
+				fire_rail(self, start, l, 1000, 1000);
+				fire_rail(self, start, r, 1000, 1000);
+				fire_rail(self, start, f, 1000, 1000);
+				fire_rail(self, start, b, 1000, 1000);
+
+				break;
+			}
+
+
+			case REGEN_HEALTH: {
+				if (self->health < 100) {
+					self->health += 3;
+				}
+				break;
+			}
 		}
 	}
 }

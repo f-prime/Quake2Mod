@@ -778,17 +778,6 @@ void soldier_attack(edict_t *self)
 {
 	// Frankie
 	if (self->is_pet) {
-		Com_Printf("PET STATS\n");
-
-		if (level.time - self->lasthungry > 5) {
-			Com_Printf("STARVING\n");
-			self->pet_hunger += 1;
-			if (self->pet_hunger >= 100) {
-				self->health = -1000;
-			}
-			self->lasthungry = level.time;
-		}
-
 		if (self->health < -100) {
 			vec3_t p = { 0, 0, 0 };
 			soldier_die(self, self, self, 2000, p);
@@ -796,8 +785,6 @@ void soldier_attack(edict_t *self)
 
 		if (self->pet_attack_state == PASSIVE)
 			return;
-
-		next_ability(self);
 
 		if (self->enemy != NULL) {
 			if (!strcmp("player", self->enemy->classname)) {

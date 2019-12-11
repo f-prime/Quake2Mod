@@ -333,23 +333,23 @@ void HelpComputer (edict_t *ent, edict_t* pet)
 				break;
 			case REGEN_HEALTH:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Regen Healt");
+				strcpy(ability, "Regen Health");
 				break;
-			case POISON:
+			case BFG:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Poison");
+				strcpy(ability, "BFG");
 				break;
-			case LIFETAP:
+			case GRENADE:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Lifetap");
+				strcpy(ability, "Grenade");
 				break;
 			case DOUBLE_FOOD:
 				memset(ability, 0, sizeof(ability));
 				strcpy(ability, "Double Food");
 				break;
-			case BULLET_BFG:
+			case RAIL:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Bullet BFG");
+				strcpy(ability, "Rail");
 				break;
 			case PLAYER_DOUBLE_DAMAGE:
 				memset(ability, 0, sizeof(ability));

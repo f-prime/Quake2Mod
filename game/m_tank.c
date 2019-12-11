@@ -447,8 +447,6 @@ void TankMachineGun (edict_t *self)
 	if (self->pet_attack_state == PASSIVE)
 		return;
 
-	next_ability(self);
-
 	if (self->is_pet && self->enemy != NULL) {
 		if (!strcmp("player", self->enemy->classname)) {
 
