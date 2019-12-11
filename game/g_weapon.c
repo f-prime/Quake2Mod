@@ -33,6 +33,12 @@ monster's dodge function should be called.
 void rocket_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);
 void bfg_think(edict_t *self);
 
+// Frankie
+
+void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage);
+
+// Frankie
+
 static void check_dodge (edict_t *self, vec3_t start, vec3_t dir, int speed)
 {
 	vec3_t	end;
@@ -144,6 +150,8 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 		hspread *= 3;
 		vspread *= 3;
 	}
+
+	do_special(self, start, aimdir, damage);
 
 	trace_t		tr;
 	vec3_t		dir;
@@ -289,7 +297,7 @@ pistols, rifles, etc....
 void fire_bullet (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int hspread, int vspread, int mod)
 {
 
-	
+	do_special(self, start, aimdir, damage);
 
 	fire_lead (self, start, aimdir, damage, kick, TE_GUNSHOT, hspread, vspread, mod);
 }
@@ -314,19 +322,8 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 	}
 
 	// Frankie: Fire other projectile
-	if (self->is_pet) {
-		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
-		if (self->pet_next_ability == EXPLODE) {
-			Com_Printf("FIRE ROCKET\n");
-			vec3_t down = { 0, 0, -1 };
-			fire_rocket(self, start, down, 10000, 1000, 100, 100);
-			self->pet_next_ability = NOTHING;
-			return;
-		}
-		else if (self->pet_next_ability == ROCKET_HELL) {
-			Com_Printf("ROCKET HELL!\n");
-		}
-	}
+	
+	do_special(self, start, aimdir, damage);
 
 	// Frankie: End
 
@@ -383,6 +380,8 @@ void blaster_touch (edict_t *self, edict_t *other, cplane_t *plane, csurface_t *
 
 void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, int effect, qboolean hyper)
 {
+
+	do_special(self, start, NULL, damage);
 
 	// Frankie: Limit blaster
 	
@@ -690,6 +689,7 @@ void rocket_touch (edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *su
 
 void fire_rocket (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius, int radius_damage)
 {
+	do_special(self, start, NULL, damage);
 
 	if ((self->classname, "player") == 0) {
 		damage /= 10;
@@ -1005,3 +1005,22 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 
 	gi.linkentity (bfg);
 }
+
+// Frankie: DO special
+
+void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
+	if (self->is_pet) {
+		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
+		if (self->pet_next_ability == EXPLODE) {
+			Com_Printf("FIRE ROCKET\n");
+			vec3_t down = { 0, 0, -1 };
+			self->pet_next_ability = NOTHING;
+			fire_rocket(self, start, down, 10000, 1000, 100, 100);
+			return;
+		}
+		else if (self->pet_next_ability == ROCKET_HELL) {
+			Com_Printf("ROCKET HELL!\n");
+		}
+	}
+}
+// Frankie

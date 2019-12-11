@@ -22,6 +22,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // Frankie
 
+void next_ability(edict_t *self) {
+	if (rand() % 100 > 10) {
+		Com_Printf("Ability\n");
+		self->pet_next_ability = self->pet_available_abilities[rand() % 3];
+	}
+}
+
 edict_t *FindMonster(edict_t *self)
 {
 	edict_t	*ent = NULL;
@@ -771,7 +778,7 @@ edict_t* spawn_pet(edict_t *self) {
 
 	if (!pet || pet->health <= 0) {
 		pet = G_Spawn();
-		Com_Printf("Ranged Pet Spawned");
+		Com_Printf("Pet Spawned");
 		Com_Printf("%d %d %d\n", self->s.origin[0], self->s.origin[1], self->s.origin[2]);
 		VectorSet(pet->s.origin, self->s.origin[0], self->s.origin[1], self->s.origin[2]);
 		//SP_monster_soldier(pet);

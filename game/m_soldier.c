@@ -786,6 +786,7 @@ void soldier_attack(edict_t *self)
 			if (self->pet_hunger >= 100) {
 				self->health = -1000;
 			}
+			self->lasthungry = level.time;
 		}
 
 		if (self->health < -100) {
@@ -796,10 +797,7 @@ void soldier_attack(edict_t *self)
 		if (self->pet_attack_state == PASSIVE)
 			return;
 
-		if (rand() % 100 > 10) {
-			Com_Printf("Ability\n");
-			self->pet_next_ability = self->pet_available_abilities[rand() % 3];
-		}
+		next_ability(self);
 
 		if (self->enemy != NULL) {
 			if (!strcmp("player", self->enemy->classname)) {
