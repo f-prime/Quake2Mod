@@ -415,14 +415,12 @@ void M_MoveFrame (edict_t *self)
 		move->frame[index].thinkfunc (self);
 }
 
-
 void monster_think (edict_t *self)
 {
 	
 	// Frankie
 
 	if (self->is_pet) {
-
 		next_ability(self);
 		if (self->pet_available_abilities[0] == HEAL_PLAYER || self->pet_available_abilities[1] == HEAL_PLAYER || self->pet_available_abilities[2] == HEAL_PLAYER) {
 			edict_t	*ent = NULL;
@@ -441,7 +439,7 @@ void monster_think (edict_t *self)
 			}
 		}
 
-		if (level.time - self->lasthungry > 5) {
+		if (level.time - self->lasthungry > 3) {
 			Com_Printf("STARVING\n");
 			self->pet_hunger += 1;
 			if (self->pet_hunger >= 100) {

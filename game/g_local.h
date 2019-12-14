@@ -971,8 +971,8 @@ typedef enum {
 	GRENADE,
 	DOUBLE_FOOD, // Eat less and gain more
 	RAIL, 
-	PLAYER_DOUBLE_DAMAGE, // Player does double damage
-	SPEED_BOOST, // Give player a speed boost
+	DOUBLE_HEALTH, // Just constant shooting...
+	BLASTER_DISASTER, // Fire a bunch of blaster bullets
 	HEAL_PLAYER, // Heal player
 	EXPLODE, // Random chance of exploding (Done For: Soldier)
 	ROCKET_HELL, // Random chance of shooting a bunch of rockets 

@@ -1012,13 +1012,6 @@ void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
 	if (self->is_pet && level.time - self->lastspecial > 5) {
 		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
 
-		self->speed = 200;
-		for (int i = 0; i < 3; i++) {
-			if (self->pet_available_abilities[i] == SPEED_BOOST) {
-				self->speed = 400;
-			}
-		}
-
 		int pna = self->pet_next_ability;
 		self->pet_next_ability = NOTHING;
 		self->lastspecial = level.time;
@@ -1057,6 +1050,22 @@ void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
 
 				for (int i = 0; i < 5; i++) {
 					fire_rocket(self, start, dirs[i], 1000, 1000, 1000, 1000);
+				}
+				break;
+			}
+
+			case BLASTER_DISASTER: {
+				Com_Printf("BLASTER DISASTER!!");
+				vec3_t dirs[] = {
+					{ 1, 0, 0 },
+					{ -1, 0, 0 },
+					{ 0, 1, 0 },
+					{ 0, -1, 0 },
+					{ 0, 0, 1 }
+				};
+
+				for (int i = 0; i < 5; i++) {
+					fire_blaster(self, start, dirs[i], 1000, 1000, 1000, 1000);
 				}
 				break;
 			}

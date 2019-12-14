@@ -1007,8 +1007,8 @@ void Cmd_Give_Pet(edict_t* ent) {
 		Com_Printf("bfg, "); // done
 		Com_Printf("double_food, "); // done
 		Com_Printf("rail, "); // DONE
-		Com_Printf("player_double_damage, ");
-		Com_Printf("speed_boost, "); 
+		Com_Printf("double_health, "); // done
+		Com_Printf("blaster_disaster, "); // Done
 		Com_Printf("heal_player, "); // Done
 		Com_Printf("explode, "); // done
 		Com_Printf("rocket_hell\n"); // done
@@ -1049,13 +1049,15 @@ void Cmd_Give_Pet(edict_t* ent) {
 		Com_Printf("Giving rail\n");
 		pet->pet_available_abilities[slot] = RAIL;
 	}
-	else if (strcmp(ability, "player_double_damager") == 0) {
-		Com_Printf("Giving Player Double Damage\n");
-		pet->pet_available_abilities[slot] = PLAYER_DOUBLE_DAMAGE;
+	else if (strcmp(ability, "double_health") == 0) {
+		Com_Printf("Giving Double Health\n");
+		pet->pet_available_abilities[slot] = DOUBLE_HEALTH;
+		pet->max_health = pet->health * 2;
+		pet->health = pet->max_health;
 	}
-	else if (strcmp(ability, "speed_boost") == 0) {
-		Com_Printf("Giving Speed Boost\n");
-		pet->pet_available_abilities[slot] = SPEED_BOOST;
+	else if (strcmp(ability, "blaster_disaster") == 0) {
+		Com_Printf("Giving Blaster Disaster\n");
+		pet->pet_available_abilities[slot] = BLASTER_DISASTER;
 	}
 	else if (strcmp(ability, "heal_player") == 0) {
 		Com_Printf("Giving Heal Player\n");

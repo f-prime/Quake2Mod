@@ -351,13 +351,13 @@ void HelpComputer (edict_t *ent, edict_t* pet)
 				memset(ability, 0, sizeof(ability));
 				strcpy(ability, "Rail");
 				break;
-			case PLAYER_DOUBLE_DAMAGE:
+			case DOUBLE_HEALTH:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Double Player Damage");
+				strcpy(ability, "Double Health");
 				break;
-			case SPEED_BOOST:
+			case BLASTER_DISASTER:
 				memset(ability, 0, sizeof(ability));
-				strcpy(ability, "Speed Boost");
+				strcpy(ability, "Blaster Disaster");
 				break;
 			case HEAL_PLAYER:
 				memset(ability, 0, sizeof(ability));
