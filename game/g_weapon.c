@@ -1025,6 +1025,7 @@ void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
 
 		switch (pna) {
 			case  EXPLODE: {
+				self->rocket_damage = 1;
 				Com_Printf("EXPLODE!\n");
 				vec3_t down = { 0, 0, -1 };
 				fire_rocket(self, start, down, 10000, 1000, 100, 100);
@@ -1044,6 +1045,7 @@ void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
 			}
 
 			case ROCKET_HELL: {
+				self->rocket_damage = 0;
 				Com_Printf("ROCKET HELL!");
 				vec3_t dirs[] = {
 					{1, 0, 0},
@@ -1056,7 +1058,6 @@ void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
 				for (int i = 0; i < 5; i++) {
 					fire_rocket(self, start, dirs[i], 1000, 1000, 1000, 1000);
 				}
-
 				break;
 			}
 

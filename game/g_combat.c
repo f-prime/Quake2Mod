@@ -558,10 +558,18 @@ void T_RadiusDamage (edict_t *inflictor, edict_t *attacker, float damage, edict_
 		if (!ent->takedamage)
 			continue;
 
+		// Frankie
+		if (!ent->rocket_damage) {
+			continue;
+		}
+
+		// Frankie
+
 		VectorAdd (ent->mins, ent->maxs, v);
 		VectorMA (ent->s.origin, 0.5, v, v);
 		VectorSubtract (inflictor->s.origin, v, v);
 		points = damage - 0.5 * VectorLength (v);
+
 		if (ent == attacker)
 			points = points * 0.5;
 		if (points > 0)

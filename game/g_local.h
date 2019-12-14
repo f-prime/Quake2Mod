@@ -1051,6 +1051,7 @@ struct edict_s
 								// use for lowgrav artifact, flares
 
 	// Frankie: Pet stuff
+	int			rocket_damage;
 	int			poisoned;
 	float		lasthungry;
 	float		lastspecial;

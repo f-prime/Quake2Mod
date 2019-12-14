@@ -791,6 +791,7 @@ edict_t* spawn_pet(edict_t *self) {
 		pet->s.renderfx |= RF_SHELL_GREEN;
 		pet->lasthungry = level.time;
 		pet->lastspecial = level.time;
+		pet->rocket_damage = 1;
 		pet->pet_attack_state = ATTACK;
 		pet->pet_move_state = FOLLOW;
 		pet->pet_next_ability = NOTHING;
