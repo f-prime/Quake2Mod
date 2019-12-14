@@ -422,6 +422,7 @@ void monster_think (edict_t *self)
 	// Frankie
 
 	if (self->is_pet) {
+
 		next_ability(self);
 		if (self->pet_available_abilities[0] == HEAL_PLAYER || self->pet_available_abilities[1] == HEAL_PLAYER || self->pet_available_abilities[2] == HEAL_PLAYER) {
 			edict_t	*ent = NULL;
@@ -462,6 +463,11 @@ void monster_think (edict_t *self)
 	M_CatagorizePosition (self);
 	M_WorldEffects (self);
 	M_SetEffects (self);
+
+	if (self->is_pet) {
+		self->s.effects |= EF_COLOR_SHELL;
+		self->s.renderfx |= RF_SHELL_GREEN;
+	}
 }
 
 

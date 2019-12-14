@@ -28,6 +28,8 @@ void next_ability(edict_t *self) {
 	}
 }
 
+// Taken from mod tutorial "Making Monsters Fight Each-Other" https://www.moddb.com/games/quake-2/tutorials/monsters-fighting-each-other 
+
 edict_t *FindMonster(edict_t *self)
 {
 	edict_t	*ent = NULL;
@@ -785,6 +787,8 @@ edict_t* spawn_pet(edict_t *self) {
 		//SP_monster_tank(pet);
 		vec3_t upward_left = { 50, 0, 0 };
 		pet->pet_hunger = 0;
+		pet->s.effects |= EF_COLOR_SHELL;
+		pet->s.renderfx |= RF_SHELL_GREEN;
 		pet->lasthungry = level.time;
 		pet->lastspecial = level.time;
 		pet->pet_attack_state = ATTACK;

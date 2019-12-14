@@ -1,54 +1,10 @@
-﻿Build started 12/11/2019 12:05:04 AM.
+﻿Build started 12/14/2019 2:24:50 PM.
      1>Project "C:\Users\Frankie\GameMod\mods\quake2-full\game\game.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D BUILDING_REF_GL /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\debug\\" /Fd".\debug\vc120.pdb" /FR".\debug\\" /Gd /TC /analyze- /errorReport:prompt g_cmds.c g_monster.c m_flyer.c m_soldier.c m_tank.c
-         m_tank.c
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(348): warning C4013: 'FindMonster' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(348): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(403): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_tank.c(454): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-         m_soldier.c
-         m_flyer.c
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_flyer.c(376): warning C4013: 'FindMonster' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_flyer.c(376): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_flyer.c(453): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_flyer.c(484): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\m_flyer.c(563): warning C4047: 'initializing' : 'edict_t *' differs in levels of indirection from 'int'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D BUILDING_REF_GL /D _VC80_UPGRADE=0x0600 /D _WINDLL /Gm /EHsc /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\debug\\" /Fd".\debug\vc120.pdb" /FR".\debug\\" /Gd /TC /analyze- /errorReport:prompt g_monster.c
          g_monster.c
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_monster.c(425): warning C4013: 'next_ability' undefined; assuming extern returning int
-         g_cmds.c
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(73): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(96): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(97): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(764): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(767): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(831): warning C4013: 'SP_monster_soldier' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(841): warning C4013: 'SP_monster_tank' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(850): warning C4013: 'SP_monster_flyer' undefined; assuming extern returning int
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(897): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(898): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(899): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(910): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(917): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(980): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(982): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(986): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_cmds.c(1155): warning C4020: 'Cmd_Help_f' : too many actual parameters
-         Generating Code...
+     1>c:\users\frankie\gamemod\mods\quake2-full\game\g_monster.c(426): warning C4013: 'next_ability' undefined; assuming extern returning int
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1186,5): warning MSB8012: TargetPath(C:\Users\Frankie\GameMod\mods\quake2-full\game\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Quake 2\mod\game.dll) does not match the Linker's OutputFile property value (C:\Program Files (x86)\Steam\steamapps\common\Quake 2\mod\gamex86.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1188,5): warning MSB8012: TargetName(game) does not match the Linker's OutputFile property value (gamex86). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
        Link:
@@ -107,4 +63,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.46
+Time Elapsed 00:00:01.07
