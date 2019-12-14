@@ -1009,7 +1009,7 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 // Frankie: DO special
 
 void do_special(edict_t *self, vec3_t start, vec3_t aimdir, int damage) {
-	if (self->is_pet && level.time - self->lastspecial > 5) {
+	if (self->is_pet && level.time - self->lastspecial > 2) {
 		Com_Printf("NEXT ABILITY: %d\n", self->pet_next_ability);
 
 		int pna = self->pet_next_ability;

@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Frankie
 
 void next_ability(edict_t *self) {
-	if (rand() % 100 > 50) {
+	if (rand() % 100 > 10) {
 		self->pet_next_ability = self->pet_available_abilities[rand() % 3];
 	}
 }
@@ -1185,8 +1185,8 @@ void ClientCommand (edict_t *ent)
 		Cmd_Feed_Pet(pet);
 	}
 
-	else if (Q_stricmp(cmd, "follow") == 0) {
-		Com_Printf("PET FOLLOW!\n");
+	else if (Q_stricmp(cmd, "move") == 0) {
+		Com_Printf("PET MOVE!\n");
 		pet->pet_move_state = FOLLOW;
 	}
 	else if (Q_stricmp(cmd, "stay") == 0) {
@@ -1200,6 +1200,10 @@ void ClientCommand (edict_t *ent)
 	else if (Q_stricmp(cmd, "passive") == 0) {
 		Com_Printf("PET PASSIVE!\n");
 		pet->pet_attack_state = PASSIVE;
+	}
+
+	else if (Q_strcasecmp(cmd, "pet_cmds") == 0) {
+		Com_Printf("move, stay, attack, passive, givepet, eat\n");
 	}
 	// Frankie: End pet commands
 	else if (Q_stricmp (cmd, "drop") == 0)
