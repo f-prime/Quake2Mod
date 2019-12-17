@@ -809,6 +809,19 @@ edict_t* spawn_pet(edict_t *self) {
 	// Frankie: End
 }
 
+
+edict_t* spawn_monster(edict_t *self) {
+	edict_t* enemy = G_Spawn();
+	VectorSet(enemy->s.origin, self->s.origin[0], self->s.origin[1], self->s.origin[2]);
+	vec3_t upward_left = { 50, 0, 0 };
+	VectorAdd(enemy->s.origin, upward_left, enemy->s.origin); // Make not stuck in the floor
+	
+	SP_monster_soldier(enemy);
+	return enemy;
+
+
+}
+
 /*
 =================
 Cmd_Wave_f
@@ -1178,6 +1191,11 @@ void ClientCommand (edict_t *ent)
 	else if (Q_stricmp(cmd, "givepet") == 0) {
 		Com_Printf("GIVE PET!\n");
 		Cmd_Give_Pet(ent);
+	}
+
+	else if (Q_stricmp(cmd, "spawn_monster") == 0) {
+		Com_Printf("Spawning Monster");
+		spawn_monster(ent);
 	}
 
 	else if (Q_stricmp(cmd, "eat") == 0) {
