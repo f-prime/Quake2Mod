@@ -27,7 +27,7 @@ Pets show up with a green halo around them and attack nearby enemies with you. T
 
 - passive - Does not attack
 
-- givepet <ability> <slot_index> - Gives a pet an ability in a particular ability slot. `givepet` run without arguments 
+- givepet [ability] [slot_index] - Gives a pet an ability in a particular ability slot. `givepet` run without arguments 
 lists all available abilities
 
 - eat - Pet eats meat near by if it wants to.
