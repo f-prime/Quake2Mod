@@ -47,3 +47,8 @@ Spawning pets has been bound to the `h` `j` and `k` keys.
 ### Help Computer
 
 When a pet is active pulling up the Help Computer (F1) will show stats on the pet such as its health, type, hunger, and current abilities.
+
+
+### Sources
+
+- http://moddb.com/games/quake-2/tutorials/monsters-fighting-each-other
